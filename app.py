@@ -1,6 +1,8 @@
 import streamlit as st
 import os
 from streamlit_chat import message
+import numpy as np
+import pandas as pd
 
 # st.config(PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION="python")
 
@@ -67,7 +69,7 @@ def get_pinecone_semantic_index(pinecone):
         )
     # now connect to index
     index = PineconeGRPC(index_name)
-    st.text(f"Succesfully connected to the pinecone")
+    st.text(f"Succesfully connected to the pinecone index")
     return index
 
 def chat_actions():
@@ -83,7 +85,7 @@ def chat_actions():
     st.session_state["chat_history"].append(
         {
             "role": "assistant",
-            "content": response.text,
+            "content": st.table(pd.DataFrame(response)),
         },  # This can be replaced with your chat response logic
     )
 
