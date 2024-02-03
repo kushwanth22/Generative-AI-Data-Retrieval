@@ -1,8 +1,6 @@
-pinecone-client[grpc]
 sentence-transformers==2.2.2
 datasets
-apache-beam
-protobuf
+pinecone-client[grpc]
 torch
 streamlit-chat-media
 streamlit-chat
