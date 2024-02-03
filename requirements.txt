@@ -1,4 +1,4 @@
-pinecone-client[grpc]==2.2.1
+pinecone-client[grpc]
 sentence-transformers==2.2.2
 datasets
 torch
