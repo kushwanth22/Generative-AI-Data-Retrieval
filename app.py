@@ -88,7 +88,7 @@ def chat_actions():
     # now query vector database
     result = index.query(query_vector, top_k=5, include_metadata=True)  # xc is a list of tuples
     with st.sidebar:
-        st.json(result)
+        st.string(type(result))
 
     for res in result['matches']:
         st.session_state["chat_history"].append(
@@ -97,6 +97,7 @@ def chat_actions():
                 "content": f"{round(res['score'],2)}: {res['metadata']['text']}",
             },  # This can be replaced with your chat response logic
         )
+        break;
 
 
 if "chat_history" not in st.session_state:
