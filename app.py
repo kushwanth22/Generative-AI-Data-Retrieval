@@ -89,8 +89,8 @@ def chat_actions():
     result = index.query(query_vector, top_k=5, include_metadata=True)  # xc is a list of tuples
     with st.sidebar:
         st.json(result)
-        
-    for result in xc['matches']:
+
+    for result in result['matches']:
         st.session_state["chat_history"].append(
             {
                 "role": "assistant",
