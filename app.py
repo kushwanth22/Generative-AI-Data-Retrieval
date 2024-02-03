@@ -5,7 +5,7 @@ from streamlit_chat import message
 
 from datasets import load_dataset
 
-dataset = load_dataset("wikipedia", "20220301.en", split="train[240000:290000]")
+dataset = load_dataset("wikipedia", "20220301.en", split="train[240000:250000]")
 
 
 wikidata = []
