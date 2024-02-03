@@ -26,10 +26,10 @@ import torch
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-# if device != 'cuda':
-#     st.text(f"you are using {device}. This is much slower than using "
-#     "a CUDA-enabled GPU. If on colab you can chnage this by "
-#     "clicking Runtime > change runtime type > GPU.")
+if device != 'cuda':
+    st.markdown(f"you are using {device}. This is much slower than using "
+    "a CUDA-enabled GPU. If on colab you can change this by "
+    "clicking Runtime > change runtime type > GPU.")
 
 model = SentenceTransformer("all-MiniLM-L6-v2", device=device)
 st.divider()
