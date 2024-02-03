@@ -33,7 +33,7 @@ st.divider()
 
 # Creating a Index(Pinecone Vector Database)
 import os
-import pinecone
+# import pinecone
 
 from pinecone.grpc import PineconeGRPC
 
