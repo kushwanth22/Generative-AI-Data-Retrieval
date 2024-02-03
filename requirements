@@ -2,3 +2,6 @@
 sentence-transformers==2.2.2
 datasets==2.12.0
 torch
+streamlit-chat-media
+streamlit-chat
+transformers
