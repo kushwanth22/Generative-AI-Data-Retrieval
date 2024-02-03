@@ -90,11 +90,11 @@ def chat_actions():
     with st.sidebar:
         st.json(result)
 
-    for result in result['matches']:
+    for res in result['matches']:
         st.session_state["chat_history"].append(
             {
                 "role": "assistant",
-                "content": f"{round(result['score'],2)}: {result['metadata']['text']}",
+                "content": f"{round(res['score'],2)}: {res['metadata']['text']}",
             },  # This can be replaced with your chat response logic
         )
 
