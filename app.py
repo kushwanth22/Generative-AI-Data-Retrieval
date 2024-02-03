@@ -42,11 +42,13 @@ PINECONE_API_KEY=os.getenv("PINECONE_API_KEY")
 PINECONE_ENV=os.getenv("PINECONE_ENV")
 PINECONE_ENVIRONMENT=os.getenv("PINECONE_ENVIRONMENT")
 
+pc = Pinecone( api_key=os.environ.get("PINECONE_API_KEY") ) # Now do stuff if 'my_index' not in pc.list_indexes().names(): pc.create_index( name='my_index', dimension=1536, metric='euclidean', spec=ServerlessSpec( cloud='aws', region='us-west-2' ) )
+
 def connect_pinecone():
-    pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_ENV)
+    pinecone = Pinecone(api_key=PINECONE_API_KEY, environment=PINECONE_ENV)
     st.code(pinecone)
     st.divider()
-    st.text(pinecone.list_indexes())
+    st.text(pinecone.list_indexes().names())
     st.divider()
     st.text(f"Succesfully connected to the pinecone")
     return pinecone
@@ -55,12 +57,13 @@ def get_pinecone_semantic_index(pinecone):
     index_name = "sematic-search"
 
     # only create if it deosnot exists
-    if index_name not in pinecone.list_indexes():
+    if index_name not in pinecone.list_indexes().names():
         pinecone.create_index(
             name=index_name,
             description="Semantic search",
             dimension=model.get_sentence_embedding_dimension(),
             metric="cosine",
+            spec=ServerlessSpec( cloud='gcp', region='us-central1' )
         )
     # now connect to index
     index = PineconeGRPC(index_name)
