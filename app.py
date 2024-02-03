@@ -23,7 +23,7 @@ import torch
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 if device != 'cuda':
-    print(f"you are using {device}. This is much slower than using "
+    st.title(f"you are using {device}. This is much slower than using "
     "a CUDA-enabled GPU. If on colab you can chnage this by "
     "clicking Runtime > change runtime type > GPU.")
 
