@@ -35,8 +35,8 @@ st.divider()
 import os
 import pinecone
 
-from pinecone.client import Index
-from pinecone.grpc import GRPCIndex
+from pinecone.grpc import PineconeGRPC
+
 
 PINECONE_API_KEY=os.getenv("PINECONE_API_KEY")
 PINECONE_ENV=os.getenv("PINECONE_ENV")
@@ -63,7 +63,7 @@ def get_pinecone_semantic_index(pinecone):
             metric="cosine",
         )
     # now connect to index
-    index = pinecone.GRPCIndex(index_name)
+    index = PineconeGRPC(index_name)
     st.text(f"Succesfully connected to the pinecone")
     return index
 
@@ -97,15 +97,15 @@ for i in st.session_state["chat_history"]:
 
 ### Creating a Index(Pinecone Vector Database)
 # %%writefile .env
-PINECONE_API_KEY=os.getenv("PINECONE_API_KEY")
-PINECONE_ENV=os.getenv("PINECONE_ENV")
-PINECONE_ENVIRONMENT=os.getenv("PINECONE_ENVIRONMENT")
+# PINECONE_API_KEY=os.getenv("PINECONE_API_KEY")
+# PINECONE_ENV=os.getenv("PINECONE_ENV")
+# PINECONE_ENVIRONMENT=os.getenv("PINECONE_ENVIRONMENT")
 
-import os
-import pinecone
+# import os
+# import pinecone
 
-from pinecone import Index, GRPCIndex
-pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_ENV)
-st.text(pinecone)
+# from pinecone import Index, GRPCIndex
+# pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_ENV)
+# st.text(pinecone)
 
 
