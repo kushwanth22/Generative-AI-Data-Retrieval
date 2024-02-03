@@ -85,7 +85,7 @@ def chat_actions():
     st.session_state["chat_history"].append(
         {
             "role": "assistant",
-            "content": st.table(pd.DataFrame(response)),
+            "content": pd.DataFrame(response),
         },  # This can be replaced with your chat response logic
     )
 
