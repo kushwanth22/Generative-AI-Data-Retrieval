@@ -3,6 +3,7 @@ import os
 from streamlit_chat import message
 import numpy as np
 import pandas as pd
+from io import StringIO
 # import json
 
 # st.config(PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION="python")
