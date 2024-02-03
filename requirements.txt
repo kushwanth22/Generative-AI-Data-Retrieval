@@ -2,7 +2,7 @@ pinecone-client[grpc]==2.2.1
 sentence-transformers==2.2.2
 datasets
 apache-beam
-pip install protobuf==3.20.0
+protobuf==3.20.0
 torch
 streamlit-chat-media
 streamlit-chat

@@ -2,6 +2,7 @@ import streamlit as st
 import os
 from streamlit_chat import message
 
+st.config(PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION="python")
 
 # from datasets import load_dataset
 
