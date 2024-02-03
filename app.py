@@ -3,7 +3,7 @@ import os
 from streamlit_chat import message
 import numpy as np
 import pandas as pd
-import json
+# import json
 
 # st.config(PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION="python")
 
@@ -91,7 +91,7 @@ def chat_actions():
     st.session_state["chat_history"].append(
         {
             "role": "assistant",
-            "content": json.dumps(result, indent=4),
+            "content": result,
         },  # This can be replaced with your chat response logic
     )
 
