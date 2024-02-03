@@ -87,18 +87,28 @@ def chat_actions():
     query_vector = query_embedding.tolist()
     # now query vector database
     result = index.query(query_vector, top_k=5, include_metadata=True)  # xc is a list of tuples
+
+    # Create a list of lists
+    data = []
+    i = 0
+    for res in result['matches']
+        i = i + 1
+        data.append([f"{i}⭐", res['score'], res['metadata']['text']])
+
+    # Create a DataFrame from the list of lists
+    resdf = pd.DataFrame(data, columns=['TopRank', 'Score', 'Text'])
+
     with st.sidebar:
-        st.text(result["matches"])
+        st.dataframe(result["matches"])
 
     for res in result['matches']:
         st.session_state["chat_history"].append(
             {
                 "role": "assistant",
-                "content": f"{round(res['score'],2)}: {res['metadata']['text']}",
+                "content": f"{res['metadata']['text']}",
             },  # This can be replaced with your chat response logic
         )
         break;
-
 
 if "chat_history" not in st.session_state:
     st.session_state["chat_history"] = []
