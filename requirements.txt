@@ -1,6 +1,6 @@
 pinecone-client[grpc]==2.2.1
 sentence-transformers==2.2.2
-datasets==1.14.0
+datasets
 apache-beam
 torch
 streamlit-chat-media
