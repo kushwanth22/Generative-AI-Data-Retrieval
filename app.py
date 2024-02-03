@@ -26,10 +26,10 @@ import torch
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-if device != 'cuda':
-    st.text(f"you are using {device}. This is much slower than using "
-    "a CUDA-enabled GPU. If on colab you can chnage this by "
-    "clicking Runtime > change runtime type > GPU.")
+# if device != 'cuda':
+#     st.text(f"you are using {device}. This is much slower than using "
+#     "a CUDA-enabled GPU. If on colab you can chnage this by "
+#     "clicking Runtime > change runtime type > GPU.")
 
 model = SentenceTransformer("all-MiniLM-L6-v2", device=device)
 st.divider()
@@ -49,11 +49,11 @@ PINECONE_ENVIRONMENT=os.getenv("PINECONE_ENVIRONMENT")
 
 def connect_pinecone():
     pinecone = PineconeGRPC(api_key=PINECONE_API_KEY, environment=PINECONE_ENV)
-    st.code(pinecone)
-    st.divider()
-    st.text(pinecone.list_indexes().names())
-    st.divider()
-    st.text(f"Succesfully connected to the pinecone")
+    # st.code(pinecone)
+    # st.divider()
+    # st.text(pinecone.list_indexes().names())
+    # st.divider()
+    # st.text(f"Succesfully connected to the pinecone")
     return pinecone
 
 def get_pinecone_semantic_index(pinecone):
@@ -70,7 +70,7 @@ def get_pinecone_semantic_index(pinecone):
         )
     # now connect to index
     index = pinecone.Index(index_name)
-    st.text(f"Succesfully connected to the pinecone index")
+    # st.text(f"Succesfully connected to the pinecone index")
     return index
 
 def chat_actions():
@@ -99,6 +99,7 @@ def chat_actions():
     resdf = pd.DataFrame(data, columns=['TopRank', 'Score', 'Text'])
 
     with st.sidebar:
+        st.markdown("*:red[semantic search results]* with **:green[Retrieval Augmented Generation]** ***(RAG)***.")
         st.dataframe(resdf)
 
     for res in result['matches']:
@@ -133,4 +134,8 @@ for i in st.session_state["chat_history"]:
 # pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_ENV)
 # st.text(pinecone)
 
-
+uploaded_files = st.file_uploader("Choose a CSV file", accept_multiple_files=True)
+for uploaded_file in uploaded_files:
+    bytes_data = uploaded_file.read()
+    st.write("filename:", uploaded_file.name)
+    st.write(bytes_data)
