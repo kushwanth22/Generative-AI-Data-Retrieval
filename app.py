@@ -84,7 +84,7 @@ def chat_actions():
 
     query_embedding = model.encode(st.session_state["chat_input"])
     # create the query vector
-    query_vector = model.encode(query_embedding).tolist()
+    query_vector = query_embedding.tolist()
     # now query vector database
     result = index.query(query_vector, top_k=5, include_metadata=True)  # xc is a list of tuples
     
