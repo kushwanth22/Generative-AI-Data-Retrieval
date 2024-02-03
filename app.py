@@ -44,7 +44,7 @@ PINECONE_API_KEY=os.getenv("PINECONE_API_KEY")
 PINECONE_ENV=os.getenv("PINECONE_ENV")
 PINECONE_ENVIRONMENT=os.getenv("PINECONE_ENVIRONMENT")
 
-pc = PineconeGRPC( api_key=os.environ.get("PINECONE_API_KEY") ) # Now do stuff if 'my_index' not in pc.list_indexes().names(): pc.create_index( name='my_index', dimension=1536, metric='euclidean', spec=ServerlessSpec( cloud='aws', region='us-west-2' ) )
+# pc = PineconeGRPC( api_key=os.environ.get("PINECONE_API_KEY") ) # Now do stuff if 'my_index' not in pc.list_indexes().names(): pc.create_index( name='my_index', dimension=1536, metric='euclidean', spec=ServerlessSpec( cloud='aws', region='us-west-2' ) )
 
 def connect_pinecone():
     pinecone = PineconeGRPC(api_key=PINECONE_API_KEY, environment=PINECONE_ENV)
