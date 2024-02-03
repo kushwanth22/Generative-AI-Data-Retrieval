@@ -3,6 +3,7 @@ import os
 from streamlit_chat import message
 import numpy as np
 import pandas as pd
+import json
 
 # st.config(PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION="python")
 
@@ -81,11 +82,16 @@ def chat_actions():
         {"role": "user", "content": st.session_state["chat_input"]},
     )
 
-    response = model.encode(st.session_state["chat_input"])
+    query_embedding = model.encode(st.session_state["chat_input"])
+    # create the query vector
+    query_vector = model.encode(query_embedding).tolist()
+    # now query vector database
+    result = index.query(query_vector, top_k=5, include_metadata=True)  # xc is a list of tuples
+    
     st.session_state["chat_history"].append(
         {
             "role": "assistant",
-            "content": pd.DataFrame(response),
+            "content": json.dumps(result, indent=4),
         },  # This can be replaced with your chat response logic
     )
 
