@@ -134,6 +134,13 @@ for i in st.session_state["chat_history"]:
 # pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_ENV)
 # st.text(pinecone)
 with st.sidebar:
+    st.markdown("""
+    ***Follow this steps***
+    - upload pdf file to train the model on your own docs
+    - wait see success message on train completion 
+    - Takes couple of mins after upload the pdf
+    - Now Chat with model to get the summarized info or Generative reponse
+    """)
     uploaded_files = st.file_uploader('Choose your .pdf file', type="pdf", accept_multiple_files=True)
     for uploaded_file in uploaded_files:
         bytes_data = uploaded_file.read()
