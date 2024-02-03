@@ -5,17 +5,17 @@ from streamlit_chat import message
 
 from datasets import load_dataset
 
-dataset = load_dataset("wikipedia", "20220301.en", split="train[240000:250000]")
+# dataset = load_dataset("wikipedia", "20220301.en", split="train[240000:250000]")
 
 
-wikidata = []
+# wikidata = []
 
-for record in dataset:
-    wikidata.append(record["text"])
+# for record in dataset:
+#     wikidata.append(record["text"])
 
-wikidata = list(set(wikidata))
-# print("\n".join(wikidata[:5]))
-# print(len(wikidata))
+# wikidata = list(set(wikidata))
+# # print("\n".join(wikidata[:5]))
+# # print(len(wikidata))
 
 from sentence_transformers import SentenceTransformer
 import torch
