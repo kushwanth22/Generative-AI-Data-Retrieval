@@ -1,10 +1,10 @@
 ---
-title: Chat with Docs
-emoji: 🤖
-colorFrom: green
-colorTo: blue
+title: Chat With Docs
+emoji: 📈
+colorFrom: blue
+colorTo: green
 sdk: streamlit
-sdk_version: 1.29.0
+sdk_version: 1.31.0
 app_file: app.py
 pinned: false
 license: mit
