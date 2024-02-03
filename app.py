@@ -88,7 +88,7 @@ def chat_actions():
     # now query vector database
     result = index.query(query_vector, top_k=5, include_metadata=True)  # xc is a list of tuples
     with st.sidebar:
-        st.text(type(result))
+        st.text(result["matches"])
 
     for res in result['matches']:
         st.session_state["chat_history"].append(
