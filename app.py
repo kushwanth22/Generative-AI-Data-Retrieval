@@ -69,7 +69,7 @@ def get_pinecone_semantic_index(pinecone):
             spec=ServerlessSpec( cloud='gcp', region='us-central1' )
         )
     # now connect to index
-    index = PineconeGRPC(index_name)
+    index = pinecone.Index(index_name)
     st.text(f"Succesfully connected to the pinecone index")
     return index
 
