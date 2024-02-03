@@ -99,7 +99,7 @@ def chat_actions():
     resdf = pd.DataFrame(data, columns=['TopRank', 'Score', 'Text'])
 
     with st.sidebar:
-        st.dataframe(result["matches"])
+        st.dataframe(resdf)
 
     for res in result['matches']:
         st.session_state["chat_history"].append(
