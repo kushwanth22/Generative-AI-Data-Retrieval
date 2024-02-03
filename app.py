@@ -35,7 +35,8 @@ st.divider()
 import os
 import pinecone
 
-from pinecone import Index, GRPCIndex
+from pinecone.client import Index
+from pinecone.grpc import GRPCIndex
 
 PINECONE_API_KEY=os.getenv("PINECONE_API_KEY")
 PINECONE_ENV=os.getenv("PINECONE_ENV")
