@@ -87,13 +87,16 @@ def chat_actions():
     query_vector = query_embedding.tolist()
     # now query vector database
     result = index.query(query_vector, top_k=5, include_metadata=True)  # xc is a list of tuples
-    
-    st.session_state["chat_history"].append(
-        {
-            "role": "assistant",
-            "content": result,
-        },  # This can be replaced with your chat response logic
-    )
+    with st.sidebar:
+        st.json(result)
+        
+    for result in xc['matches']:
+        st.session_state["chat_history"].append(
+            {
+                "role": "assistant",
+                "content": f"{round(result['score'],2)}: {result['metadata']['text']}",
+            },  # This can be replaced with your chat response logic
+        )
 
 
 if "chat_history" not in st.session_state:
