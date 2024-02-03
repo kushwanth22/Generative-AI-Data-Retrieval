@@ -68,7 +68,7 @@ def get_pinecone_semantic_index(pinecone):
 def chat_actions():
     
     pinecone = connect_pinecone()
-    index = get_pinecone_semantic_index(pinecone semantic index)
+    index = get_pinecone_semantic_index(pinecone)
 
     st.session_state["chat_history"].append(
         {"role": "user", "content": st.session_state["chat_input"]},
