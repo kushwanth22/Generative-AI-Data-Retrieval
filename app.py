@@ -91,7 +91,7 @@ def chat_actions():
     # Create a list of lists
     data = []
     i = 0
-    for res in result['matches']
+    for res in result['matches']:
         i = i + 1
         data.append([f"{i}⭐", res['score'], res['metadata']['text']])
 
