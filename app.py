@@ -233,6 +233,7 @@ with st.sidebar:
     - Now Chat with your documents with help of this RAG system 
     - It Generate Promted reponses on the upload pdf
     - Provides summarized results and QA's using GPT models
+    - This system already trained on some wikipedia datasets too
     """)
     uploaded_files = st.file_uploader('Choose your .pdf file', type="pdf", accept_multiple_files=True, key="uploaded_files", on_change=create_embeddings)
     # for uploaded_file in uploaded_files:
