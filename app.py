@@ -7,7 +7,7 @@ from io import StringIO
 import PyPDF2
 from tqdm import tqdm
 import math
-# from transformers import pipeline
+from transformers import pipeline
 # import json
 
 # st.config(PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION="python")
