@@ -129,8 +129,7 @@ def chat_actions():
     with st.sidebar:
         st.markdown("*:red[semantic search results]* with **:green[Retrieval Augmented Generation]** ***(RAG)***.")
         st.dataframe(resdf)
-        val = 1en(consolidated_text)
-        st.write(str(val))
+        st.write(f"There are {len(consolidated_text)} characters in the pdf with {mbsize}MB size")
         promt_engineer(consolidated_text)
 
     for res in result['matches']:
