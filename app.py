@@ -199,7 +199,7 @@ def create_embeddings():
     # The maximum metadata size per vector is 40KB ~ 40000Bytes ~ each text character is 1 to 2 bytes. so rougly given chunk size of 10000 to 40000
     chunk_size = 10000
     batch_size = 2
-    chunks = split_into_chunks(inputtext, batch_size)
+    chunks = split_into_chunks(inputtext, chunk_size)
 
     for i in tqdm(range(0, len(chunks), batch_size)):
         # find end of batch
