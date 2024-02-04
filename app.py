@@ -121,7 +121,7 @@ def chat_actions():
     for res in result['matches']:
         i = i + 1
         data.append([f"{i}⭐", res['score'], res['metadata']['text']])
-        consolidated_text.append(f"{res['metadata']['text']}\n\n")
+        consolidated_text += f"{res['metadata']['text']}\n\n"
 
     # Create a DataFrame from the list of lists
     resdf = pd.DataFrame(data, columns=['TopRank', 'Score', 'Text'])
