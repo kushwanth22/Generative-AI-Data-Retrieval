@@ -97,6 +97,8 @@ def promt_engineer(text):
     summary = summarizer(prompt, max_length=1024, min_length=50)[0]["summary_text"]
     
     with st.sidebar:
+        st.divider()
+        st.markdown("*:red[Text Summary Generation]* on **:green[semantic search Retrieval data(Top 5 Ranks)]** ***(RAG)***.")
         st.write(summary)
 
 def chat_actions():
