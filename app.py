@@ -98,7 +98,7 @@ def promt_engineer(text):
     
     with st.sidebar:
         st.divider()
-        st.markdown("*:red[Text Summary Generation]* on **:green[semantic search Retrieval data(Top 5 Ranks)]** ***(RAG)***.")
+        st.markdown("*:red[Text Summary Generation]* from above Top 5 **:green[similarity search results]**.")
         st.write(summary)
         st.divider()
 
