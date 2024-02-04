@@ -155,13 +155,13 @@ def combine_text(pages):
 
 def create_embeddings():
     # Get the uploaded file
-    uploaded_file = st.session_state["uploaded_file"]
-
-    # Read the contents of the file
-    reader = PyPDF2.PdfReader(uploaded_file)
-    pages = reader.pages
-    print_out(pages)
-    combine_text(pages)
+    uploaded_files = st.session_state["uploaded_files"]
+    for uploaded_file in uploaded_files:
+        # Read the contents of the file
+        reader = PyPDF2.PdfReader(uploaded_file)
+        pages = reader.pages
+        print_out(pages)
+        combine_text(pages)
 
     st.write("created_embeddings")
 
@@ -186,7 +186,7 @@ with st.sidebar:
     - Takes couple of mins after upload the pdf
     - Now Chat with model to get the summarized info or Generative reponse
     """)
-    uploaded_files = st.file_uploader('Choose your .pdf file', type="pdf", accept_multiple_files=True, key="uploaded_file", on_change=create_embeddings)
+    uploaded_files = st.file_uploader('Choose your .pdf file', type="pdf", accept_multiple_files=True, key="uploaded_files", on_change=create_embeddings)
     # for uploaded_file in uploaded_files:
         # To read file as bytes:
         # bytes_data = uploaded_file.getvalue()
@@ -203,6 +203,7 @@ with st.sidebar:
         # Can be used wherever a "file-like" object is accepted:
         # dataframe = pd.read_csv(uploaded_file)
         # st.write(dataframe)
+        
         # reader = PyPDF2.PdfReader(uploaded_file)
         # pages = reader.pages
         # print_out(pages)
