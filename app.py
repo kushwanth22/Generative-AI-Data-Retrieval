@@ -79,7 +79,7 @@ def get_pinecone_semantic_index(pinecone):
     return index
 
 def promt_engineer(text):
-    promt_template = """
+    prompt_template = """
     write a concise summary of the following text delimited by triple backquotes.
     return your response in bullet points which convers the key points of the text.
 
