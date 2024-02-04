@@ -7,7 +7,7 @@ from io import StringIO
 import PyPDF2
 from tqdm import tqdm
 import math
-from transformers import pipeline
+# from transformers import pipeline
 # import json
 
 # st.config(PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION="python")
@@ -133,7 +133,7 @@ def chat_actions():
         p = math.pow(1024, 2)
         mbsize = round(len(bytesize) / p, 2)
         st.write(f"Text lenth of {len(consolidated_text)} characters with {mbsize}MB size")
-        promt_engineer(consolidated_text)
+        promt_engineer(consolidated_text[:1024])
 
     for res in result['matches']:
         st.session_state["chat_history"].append(
