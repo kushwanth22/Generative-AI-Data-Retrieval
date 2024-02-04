@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 from io import StringIO
 import PyPDF2
-from tqdm import tqdm
+from tqdm.auto import tqdm
 import math
 from transformers import pipeline
 # import json
@@ -150,25 +150,11 @@ def chat_actions():
 if "chat_history" not in st.session_state:
     st.session_state["chat_history"] = []
 
-
 st.chat_input("show me the contents of ML paper published on xxx with article no. xx?", on_submit=chat_actions, key="chat_input")
 
 for i in st.session_state["chat_history"]:
     with st.chat_message(name=i["role"]):
         st.write(i["content"])
-
-### Creating a Index(Pinecone Vector Database)
-# %%writefile .env
-# PINECONE_API_KEY=os.getenv("PINECONE_API_KEY")
-# PINECONE_ENV=os.getenv("PINECONE_ENV")
-# PINECONE_ENVIRONMENT=os.getenv("PINECONE_ENVIRONMENT")
-
-# import os
-# import pinecone
-
-# from pinecone import Index, GRPCIndex
-# pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_ENV)
-# st.text(pinecone)
 
 def print_out(pages):
     for i in range(len(pages)):
@@ -184,9 +170,11 @@ def combine_text(pages):
     p = math.pow(1024, 2)
     mbsize = round(len(bytesize) / p, 2)
     st.write(f"There are {len(concatenates_text)} characters in the pdf with {mbsize}MB size")
+    return concatenates_text
 
 def create_embeddings():
     # Get the uploaded file
+    inputtext = ""
     with st.sidebar:
         uploaded_files = st.session_state["uploaded_files"]
         for uploaded_file in uploaded_files:
@@ -194,13 +182,36 @@ def create_embeddings():
             reader = PyPDF2.PdfReader(uploaded_file)
             pages = reader.pages
             print_out(pages)
-            combine_text(pages)
+            inputtext = combine_text(pages)
 
-        st.write("created_embeddings")
+    # connect to pinecone index
+    pinecone = connect_pinecone()
+    index = get_pinecone_semantic_index(pinecone)
+
+    # The maximum metadata size per vector is 40KB
+    batch_size = 10000
+    for i in tqdm(range(0, len(inputtext), batch_size)):
+        # find end of batch
+        end = min(i + batch_size, len(inputtext))
+        # create ids batch
+        ids = [str(i) for i in range(i, end)]
+        # create metadata batch
+        metadata = [{"text": text} for text in inputtext[i:end]]
+        # create embeddings
+        xc = model.encode(inputtext[i:end])
+        # create records list for upsert
+        records = zip(ids, xc, metadata)
+        # upsert records
+        index.upsert(vectors=records)
+
+    with st.sidebar:
+        st.write("created vector embeddings!")
+        # check no of records in the index
+        st.write(f"{index.describe_index_stats()}")
+
 
     # Display the contents of the file
     # st.write(file_contents)
-
 
 with st.sidebar:
     st.markdown("""
@@ -235,4 +246,3 @@ with st.sidebar:
         # print_out(pages)
         # combine_text(pages)
         # promt_engineer(text)
-    
