@@ -129,6 +129,7 @@ def chat_actions():
     with st.sidebar:
         st.markdown("*:red[semantic search results]* with **:green[Retrieval Augmented Generation]** ***(RAG)***.")
         st.dataframe(resdf)
+        st.write(f"{procesing 1en(consolidated_text) of text}" )
         promt_engineer(consolidated_text[:1000])
 
     for res in result['matches']:
