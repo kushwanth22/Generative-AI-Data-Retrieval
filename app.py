@@ -121,7 +121,7 @@ def chat_actions():
     for res in result['matches']:
         i = i + 1
         data.append([f"{i}⭐", res['score'], res['metadata']['text']])
-        consolidated_text += f"{res['metadata']['text']}\n\n"
+        consolidated_text += res['metadata']['text']
 
     # Create a DataFrame from the list of lists
     resdf = pd.DataFrame(data, columns=['TopRank', 'Score', 'Text'])
@@ -129,7 +129,7 @@ def chat_actions():
     with st.sidebar:
         st.markdown("*:red[semantic search results]* with **:green[Retrieval Augmented Generation]** ***(RAG)***.")
         st.dataframe(resdf)
-        promt_engineer(consolidated_text)
+        promt_engineer(consolidated_text[:5000])
 
     for res in result['matches']:
         st.session_state["chat_history"].append(
