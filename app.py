@@ -148,7 +148,7 @@ def combine_text(pages):
     for page in tqdm(pages):
         text = page.extract_text().strip()
         concatenates_text += text
-    bytesize = bytes(text, "utf-8")
+    bytesize = bytes(concatenates_text, "utf-8")
     p = math.pow(1024, 2)
     mbsize = round(bytesize / p, 2)
     st.write(f"There are {len(concatenates_text)} characters in the pdf with {mbsize}MB size")
