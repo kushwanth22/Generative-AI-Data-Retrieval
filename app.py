@@ -196,17 +196,20 @@ def create_embeddings():
     pinecone = connect_pinecone()
     index = get_pinecone_semantic_index(pinecone)
 
-    # The maximum metadata size per vector is 40KB ~ 40000Bytes ~ each text character is 1 to 2 bytes. so rougly given batch size of 10000 to 40000
-    batch_size = 10000
-    for i in tqdm(range(0, len(inputtext), batch_size)):
+    # The maximum metadata size per vector is 40KB ~ 40000Bytes ~ each text character is 1 to 2 bytes. so rougly given chunk size of 10000 to 40000
+    chunk_size = 10000
+    batch_size = 2
+    chunks = split_into_chunks(inputtext, batch_size)
+
+    for i in tqdm(range(0, len(chunks), batch_size)):
         # find end of batch
-        end = min(i + batch_size, len(inputtext))
+        end = min(i + batch_size, len(chunks))
         # create ids batch
         ids = [str(i) for i in range(i, end)]
         # create metadata batch
-        metadata = [{"text": text} for text in inputtext[i:end]]
+        metadata = [{"text": text} for text in chunks[i:end]]
         # create embeddings
-        xc = model.encode(inputtext[i:end])
+        xc = model.encode(chunks[i:end])
         # create records list for upsert
         records = zip(ids, xc, metadata)
         # upsert records
