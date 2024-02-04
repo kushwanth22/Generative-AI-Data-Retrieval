@@ -129,8 +129,8 @@ def chat_actions():
     with st.sidebar:
         st.markdown("*:red[semantic search results]* with **:green[Retrieval Augmented Generation]** ***(RAG)***.")
         st.dataframe(resdf)
-        st.write(f"{procesing 1en(consolidated_text) of text}" )
-        promt_engineer(consolidated_text[:1000])
+        st.write(f"processing {1en(consolidated_text)} of text" )
+        promt_engineer(consolidated_text)
 
     for res in result['matches']:
         st.session_state["chat_history"].append(
