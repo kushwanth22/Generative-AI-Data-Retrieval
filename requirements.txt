@@ -5,3 +5,7 @@ torch
 streamlit-chat-media
 streamlit-chat
 transformers
+PyPDF2
+ratelimit
+backoff
+tqdm

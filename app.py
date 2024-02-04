@@ -4,6 +4,8 @@ from streamlit_chat import message
 import numpy as np
 import pandas as pd
 from io import StringIO
+import PyPDF2
+from tqdm import tqdm
 # import json
 
 # st.config(PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION="python")
@@ -134,6 +136,12 @@ for i in st.session_state["chat_history"]:
 # from pinecone import Index, GRPCIndex
 # pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_ENV)
 # st.text(pinecone)
+
+def print_out(pages)
+    for i in range(len(pages)):
+        text = pages[i].extract_text().strip()
+        st.write(f"Page {i} : {text}")
+
 with st.sidebar:
     st.markdown("""
     ***Follow this steps***
@@ -157,5 +165,9 @@ with st.sidebar:
         # st.write(string_data)
 
         # Can be used wherever a "file-like" object is accepted:
-        dataframe = pd.read_csv(uploaded_file)
-        st.write(dataframe)
+        # dataframe = pd.read_csv(uploaded_file)
+        # st.write(dataframe)
+        reader = PyPDF2.PdfReader(uploaded_file)
+        pages = reader.pages
+        print_out(pages)
+
