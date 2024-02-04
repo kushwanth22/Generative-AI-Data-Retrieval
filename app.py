@@ -138,19 +138,6 @@ for i in st.session_state["chat_history"]:
 # pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_ENV)
 # st.text(pinecone)
 
-def create_embeddings():
-    # Get the uploaded file
-    uploaded_file = st.session_state["uploaded_file"]
-
-    # Read the contents of the file
-    file_contents = uploaded_file.read()
-
-    st.write("created_embeddings")
-
-    # Display the contents of the file
-    st.write(file_contents)
-
-
 def print_out(pages):
     for i in range(len(pages)):
         text = pages[i].extract_text().strip()
@@ -166,6 +153,21 @@ def combine_text(pages):
     mbsize = round(len(bytesize) / p, 2)
     st.write(f"There are {len(concatenates_text)} characters in the pdf with {mbsize}MB size")
 
+def create_embeddings():
+    # Get the uploaded file
+    uploaded_file = st.session_state["uploaded_file"]
+
+    # Read the contents of the file
+    reader = PyPDF2.PdfReader(uploaded_file)
+    pages = reader.pages
+    print_out(pages)
+    combine_text(pages)
+
+    st.write("created_embeddings")
+
+    # Display the contents of the file
+    # st.write(file_contents)
+
 # def promt_engineer(text):
 #     promt_template = """
 #     write a concise summary of the following text delimited by triple backquotes.
@@ -176,7 +178,6 @@ def combine_text(pages):
 #     BULLET POINT SUMMARY:
 #     """
 
-
 with st.sidebar:
     st.markdown("""
     ***Follow this steps***
@@ -186,7 +187,7 @@ with st.sidebar:
     - Now Chat with model to get the summarized info or Generative reponse
     """)
     uploaded_files = st.file_uploader('Choose your .pdf file', type="pdf", accept_multiple_files=True, key="uploaded_file", on_change=create_embeddings)
-    for uploaded_file in uploaded_files:
+    # for uploaded_file in uploaded_files:
         # To read file as bytes:
         # bytes_data = uploaded_file.getvalue()
         # st.write(bytes_data)
@@ -202,8 +203,8 @@ with st.sidebar:
         # Can be used wherever a "file-like" object is accepted:
         # dataframe = pd.read_csv(uploaded_file)
         # st.write(dataframe)
-        reader = PyPDF2.PdfReader(uploaded_file)
-        pages = reader.pages
-        print_out(pages)
-        combine_text(pages)
+        # reader = PyPDF2.PdfReader(uploaded_file)
+        # pages = reader.pages
+        # print_out(pages)
+        # combine_text(pages)
         # promt_engineer(text)
