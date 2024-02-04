@@ -119,7 +119,7 @@ if "chat_history" not in st.session_state:
     st.session_state["chat_history"] = []
 
 
-st.chat_input("Enter your message", on_submit=chat_actions, key="chat_input")
+st.chat_input("show me the contents of ML paper published on xxx with article no. xx?", on_submit=chat_actions, key="chat_input")
 
 for i in st.session_state["chat_history"]:
     with st.chat_message(name=i["role"]):
