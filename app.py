@@ -94,7 +94,7 @@ def promt_engineer(text):
     prompt = prompt_template.format(text=text)
 
     # Generate the summary
-    summary = summarizer(prompt, max_length=100, min_length=50)[0]["summary_text"]
+    summary = summarizer(prompt, max_length=1024, min_length=50)[0]["summary_text"]
     
     with st.sidebar:
         st.write(summary)
