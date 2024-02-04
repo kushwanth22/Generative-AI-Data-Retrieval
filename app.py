@@ -6,6 +6,7 @@ import pandas as pd
 from io import StringIO
 import PyPDF2
 from tqdm import tqdm
+import math
 # import json
 
 # st.config(PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION="python")
@@ -142,6 +143,16 @@ def print_out(pages):
         text = pages[i].extract_text().strip()
         st.write(f"Page {i} : {text}")
 
+def combine_text(pages):
+    concatenates_text = ""
+    for page in tqdm(pages):
+        text = page.extract_text().strip()
+        concatenates_text += text
+    bytesize = bytes(text, "utf-8")
+    p = math.pow(1024, 2)
+    mbsize = round(bytesize / p, 2)
+    st.write(f"There are {len(concatenates_text)} characters in the pdf with {mbsize}MB size")
+
 with st.sidebar:
     st.markdown("""
     ***Follow this steps***
@@ -170,4 +181,4 @@ with st.sidebar:
         reader = PyPDF2.PdfReader(uploaded_file)
         pages = reader.pages
         print_out(pages)
-
+        combine_text(pages)
