@@ -100,6 +100,7 @@ def promt_engineer(text):
         st.divider()
         st.markdown("*:red[Text Summary Generation]* on **:green[semantic search Retrieval data(Top 5 Ranks)]** ***(RAG)***.")
         st.write(summary)
+        st.divider()
 
 def chat_actions():
     
@@ -203,12 +204,12 @@ def create_embeddings():
 
 with st.sidebar:
     st.markdown("""
-    ***Follow this steps***
+    ***:red[Follow this steps]***
     - upload pdf file to create embeddings using model on your own docs
     - wait see success message on embeddings creation 
     - It Takes couple of mins after upload the pdf
-    - Now Chat with model to get the summarized info 
-    - Generate Promted reponses on the upload pdf
+    - Now Chat with your documents with help of this RAG system 
+    - It Generate Promted reponses on the upload pdf
     - Provides summarized results and QA's using GPT models
     """)
     uploaded_files = st.file_uploader('Choose your .pdf file', type="pdf", accept_multiple_files=True, key="uploaded_files", on_change=create_embeddings)
