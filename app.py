@@ -7,6 +7,7 @@ from io import StringIO
 import PyPDF2
 from tqdm import tqdm
 import math
+from transformers import pipeline
 # import json
 
 # st.config(PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION="python")
@@ -77,6 +78,27 @@ def get_pinecone_semantic_index(pinecone):
     # st.text(f"Succesfully connected to the pinecone index")
     return index
 
+def promt_engineer(text):
+    promt_template = """
+    write a concise summary of the following text delimited by triple backquotes.
+    return your response in bullet points which convers the key points of the text.
+
+    ```{text}```
+
+    BULLET POINT SUMMARY:
+    """
+    # Load the summarization pipeline with the specified model
+    summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
+
+    # Generate the prompt
+    prompt = prompt_template.format(text=text)
+
+    # Generate the summary
+    summary = summarizer(prompt, max_length=100, min_length=50)[0]["summary_text"]
+    
+    with st.sidebar:
+        st.write(summary)
+
 def chat_actions():
     
     pinecone = connect_pinecone()
@@ -90,14 +112,16 @@ def chat_actions():
     # create the query vector
     query_vector = query_embedding.tolist()
     # now query vector database
-    result = index.query(query_vector, top_k=5, include_metadata=True)  # xc is a list of tuples
+    result = index.query(query_vector, top_k=5, include_metadata=True)  # result is a list of tuples
 
     # Create a list of lists
     data = []
+    consolidated_text = ""
     i = 0
     for res in result['matches']:
         i = i + 1
         data.append([f"{i}⭐", res['score'], res['metadata']['text']])
+        consolidated_text.append(f"{res['metadata']['text']}\n\n")
 
     # Create a DataFrame from the list of lists
     resdf = pd.DataFrame(data, columns=['TopRank', 'Score', 'Text'])
@@ -105,6 +129,7 @@ def chat_actions():
     with st.sidebar:
         st.markdown("*:red[semantic search results]* with **:green[Retrieval Augmented Generation]** ***(RAG)***.")
         st.dataframe(resdf)
+        promt_engineer(consolidated_text)
 
     for res in result['matches']:
         st.session_state["chat_history"].append(
@@ -169,15 +194,6 @@ def create_embeddings():
     # Display the contents of the file
     # st.write(file_contents)
 
-# def promt_engineer(text):
-#     promt_template = """
-#     write a concise summary of the following text delimited by triple backquotes.
-#     return your response in bullet points which convers the key points of the text.
-
-#     ```{text}```
-
-#     BULLET POINT SUMMARY:
-#     """
 
 with st.sidebar:
     st.markdown("""
@@ -187,6 +203,7 @@ with st.sidebar:
     - It Takes couple of mins after upload the pdf
     - Now Chat with model to get the summarized info 
     - Generate Promted reponses on the upload pdf
+    - Provides summarized results and QA's using GPT models
     """)
     uploaded_files = st.file_uploader('Choose your .pdf file', type="pdf", accept_multiple_files=True, key="uploaded_files", on_change=create_embeddings)
     # for uploaded_file in uploaded_files:
@@ -211,3 +228,4 @@ with st.sidebar:
         # print_out(pages)
         # combine_text(pages)
         # promt_engineer(text)
+    
