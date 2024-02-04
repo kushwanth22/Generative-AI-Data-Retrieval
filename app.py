@@ -155,15 +155,16 @@ def combine_text(pages):
 
 def create_embeddings():
     # Get the uploaded file
-    uploaded_files = st.session_state["uploaded_files"]
-    for uploaded_file in uploaded_files:
-        # Read the contents of the file
-        reader = PyPDF2.PdfReader(uploaded_file)
-        pages = reader.pages
-        print_out(pages)
-        combine_text(pages)
+    with st.sidebar:
+        uploaded_files = st.session_state["uploaded_files"]
+        for uploaded_file in uploaded_files:
+            # Read the contents of the file
+            reader = PyPDF2.PdfReader(uploaded_file)
+            pages = reader.pages
+            print_out(pages)
+            combine_text(pages)
 
-    st.write("created_embeddings")
+        st.write("created_embeddings")
 
     # Display the contents of the file
     # st.write(file_contents)
@@ -203,7 +204,7 @@ with st.sidebar:
         # Can be used wherever a "file-like" object is accepted:
         # dataframe = pd.read_csv(uploaded_file)
         # st.write(dataframe)
-        
+
         # reader = PyPDF2.PdfReader(uploaded_file)
         # pages = reader.pages
         # print_out(pages)
