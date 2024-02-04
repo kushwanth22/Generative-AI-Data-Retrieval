@@ -137,7 +137,7 @@ for i in st.session_state["chat_history"]:
 # pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_ENV)
 # st.text(pinecone)
 
-def print_out(pages)
+def print_out(pages):
     for i in range(len(pages)):
         text = pages[i].extract_text().strip()
         st.write(f"Page {i} : {text}")
