@@ -172,6 +172,14 @@ def combine_text(pages):
     st.write(f"There are {len(concatenates_text)} characters in the pdf with {mbsize}MB size")
     return concatenates_text
 
+def split_into_chunks(text, chunk_size):
+
+    chunks = []
+    for i in range(0, len(text), chunk_size):
+        chunks.append(text[i:i + chunk_size])
+
+    return chunks
+
 def create_embeddings():
     # Get the uploaded file
     inputtext = ""
@@ -188,7 +196,7 @@ def create_embeddings():
     pinecone = connect_pinecone()
     index = get_pinecone_semantic_index(pinecone)
 
-    # The maximum metadata size per vector is 40KB
+    # The maximum metadata size per vector is 40KB ~ 40000Bytes ~ each text character is 1 to 2 bytes. so rougly given batch size of 10000 to 40000
     batch_size = 10000
     for i in tqdm(range(0, len(inputtext), batch_size)):
         # find end of batch
